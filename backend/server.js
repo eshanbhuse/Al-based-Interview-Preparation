@@ -12,13 +12,25 @@ const { protect } = require("./middlewares/authMiddleware")
 const { generateInterviewQuestions, generateConceptExplanation } = require("./controllers/aiController")
 const cors = require('cors');
 
-app.use(
-     cors({
-         origin: process.env.CLIENT_URL ||"*",
-         methods:["GET","POST","PUT","DELETE"],
-         allowedHeaders:["Content-Type","Authorization"],
-     })
- );
+const allowedOrigins = [
+    'http://localhost:5173',          // Local development
+    'https://al-based-interview-preparation-frontend-71c1.onrender.com/'             // Production frontend URL (set in .env or Vercel)
+];
+
+app.use(cors({
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like Postman or server-to-server)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true); // Allowed
+        } else {
+            callback(new Error('Not allowed by CORS')); // Blocked
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
 
 connectDB()
 app.use(express.json())
@@ -36,3 +48,4 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT,()=>
     console.log(`Server is running on port ${PORT}`));
 
+module.exports = app;
