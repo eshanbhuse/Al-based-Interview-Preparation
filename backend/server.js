@@ -10,9 +10,11 @@ const sessionRoutes = require("./routes/sessionRoutes")
 const questionRoutes = require("./routes/questionRoutes")
 const { protect } = require("./middlewares/authMiddleware")
 const { generateInterviewQuestions, generateConceptExplanation } = require("./controllers/aiController")
+const cors = require('cors');
+
 app.use(
      cors({
-         origin:"*",
+         origin: process.env.CLIENT_URL ||"*",
          methods:["GET","POST","PUT","DELETE"],
          allowedHeaders:["Content-Type","Authorization"],
      })

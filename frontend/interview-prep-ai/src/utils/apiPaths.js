@@ -1,5 +1,5 @@
 
-export const BASE_URL = 'http://localhost:8000';
+export const BASE_URL = 'https://al-based-interview-preparation-backend.onrender.com/';
 export const API_PATHS = {
     AUTH:{
     LOGIN: '/api/auth/login',
