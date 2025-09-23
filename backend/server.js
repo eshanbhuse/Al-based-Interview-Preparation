@@ -12,8 +12,7 @@ const { generateInterviewQuestions, generateConceptExplanation } = require("./co
 const cors = require('cors');
 
 const allowedOrigins = [
-    'http://localhost:5173',          // Local development
-    'https://al-based-interview-preparation-frontend-71c1.onrender.com/'             // Production frontend URL (set in .env or Vercel)
+    'https:al-based-interview-preparation-frontend-71c1.onrender.com'             
 ];
 
 app.use(cors({
@@ -31,8 +30,8 @@ app.use(cors({
     credentials: true
 }));
 
-connectDB()
 app.use(express.json())
+connectDB()
 
 app.use("/api/auth", authRoutes )
 app.use("/api/sessions", sessionRoutes )
