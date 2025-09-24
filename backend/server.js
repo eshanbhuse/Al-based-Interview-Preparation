@@ -12,7 +12,8 @@ const { generateInterviewQuestions, generateConceptExplanation } = require("./co
 const cors = require('cors');
 
 const allowedOrigins = [
-    'https://al-based-interview-preparation-frontend-71c1.onrender.com'             
+    'http://localhost:5173',             
+    // 'https://al-based-interview-preparation-frontend-71c1.onrender.com'             
 ];
 
 app.use(cors({

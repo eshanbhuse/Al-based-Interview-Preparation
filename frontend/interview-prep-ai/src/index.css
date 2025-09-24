@@ -2,6 +2,11 @@
 @import "tailwindcss";
 @tailwind utilities;
 
+/* index.css */
+html, body, #root {
+  overflow-x: hidden;
+}
+
 @theme {
     --font-display: 'Urbanist', sans-serif;
     --breakpoint-3xl: 1920px;
