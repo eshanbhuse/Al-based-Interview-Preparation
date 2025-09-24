@@ -13,7 +13,7 @@ const cors = require('cors');
 
 const allowedOrigins = [
     'http://localhost:5173',             
-    // 'https://al-based-interview-preparation-frontend-71c1.onrender.com'             
+    'https://al-based-interview-preparation-frontend-71c1.onrender.com'             
 ];
 
 app.use(cors({
