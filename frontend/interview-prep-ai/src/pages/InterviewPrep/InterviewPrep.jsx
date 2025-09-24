@@ -36,32 +36,73 @@ const InterviewPrep = () => {
     }
   };
 
-  const generateConceptExplanation = async (question) => {
-    try {
-      setErrorMsg("");
-      setIsLoading(true);
-      setOpenLeanMoreDrawer(true);
-      setExplanation(null);
-      const response = await axiosInstance.post(
-        API_PATHS.AI.GENERATE_EXPLANATION,
-        {
-          question,
-        }
-      );
+  // const generateConceptExplanation = async (question) => {
+  //   try {
+  //     setErrorMsg("");
+  //     setIsLoading(true);
+  //     setOpenLeanMoreDrawer(true);
+  //     setExplanation(null);
+  //     const response = await axiosInstance.post(
+  //       API_PATHS.AI.GENERATE_EXPLANATION,
+  //       {
+  //         question,
+  //       }
+  //     );
 
-      if (response.data && response.data.length > 0) {
-        setExplanation(response.data[0]);
-      } else {
-        setExplanation(null);
+  //     if (response.data && response.data.length > 0) {
+  //       setExplanation(response.data[0]);
+  //     } else {
+  //       setExplanation(null);
+  //     }
+  //   } catch (error) {
+  //     setExplanation(null);
+  //     setErrorMsg("Failed to generate explanation. Please try again.");
+  //     console.error("Error generating explanation:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+
+  // };
+
+  const generateConceptExplanation = async (question, retries = 10, delay = 2000) => {
+  setErrorMsg('');
+  setIsLoading(true);
+  setOpenLeanMoreDrawer(true);
+  setExplanation(null);
+
+  try {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await axiosInstance.post(API_PATHS.AI.GENERATE_EXPLANATION, { question });
+        console.log('API response:', response.data);
+
+        // Check if response is an array with at least one item
+        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+          const explanationData = {
+            title: response.data[0].title || question,
+            explanation: response.data[0].explanation || response.data[0].text || "No explanation available"
+          };
+          setExplanation(explanationData);
+          return; // exit loop on success
+        } else {
+          // If array is empty or invalid, throw error to retry
+          throw new Error('Empty or invalid response data');
+        }
+      } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error);
+        if (attempt === retries) {
+          setExplanation(null);
+          setErrorMsg('Failed to generate explanation. Please try again later.');
+        } else {
+          await new Promise(r => setTimeout(r, delay));
+        }
       }
-    } catch (error) {
-      setExplanation(null);
-      setErrorMsg("Failed to generate explanation. Please try again.");
-      console.error("Error generating explanation:", error);
-    } finally {
-      setIsLoading(false);
     }
-  };
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
 
   const toggleQuestionPinStatus = async (questionId) => {
