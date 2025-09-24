@@ -15,5 +15,5 @@
 - **Backend: Node.js, Express.js, MongoDB**  
 - **AI Integration: Google Gemini API**  
 - **Authentication: JWT-based login and signup**  
-- **Deployment: Deployed on render
+- **Deployment: Deployed on render**
 
