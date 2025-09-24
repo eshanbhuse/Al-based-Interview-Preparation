@@ -26,7 +26,7 @@ const LandingPage = () => {
 
   return (
     <>
-    <div className='w-full min-h-full bg-[#fffcef] '>
+    <div className='w-full min-h-full bg-[#fffcef]  relative overflow-hidden'>
       <div className='w-[500px] h-[500px] bg-amber-200/20 blur-[65px] absolute top-0 left-0 ' />
       <div className='container mx-auto px-4 pt-6 pb-[200px] relative z-10'>
           <header className='flex justify-between items-center mb-16'>
