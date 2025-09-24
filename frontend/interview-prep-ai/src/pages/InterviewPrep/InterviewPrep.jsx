@@ -137,7 +137,7 @@ const InterviewPrep = () => {
             : ""
         }
       />
-      <div className="container mx-auto pt-4 pb-4 px-4 md:px-0 ml-4 md:ml-7">
+      <div className="container mx-auto pt-4 pb-4 px-4 md:px-0 ">
         <h2 className="text-lg font-semibold color-black">
           Interview Questions
         </h2>
